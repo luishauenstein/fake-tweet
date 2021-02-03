@@ -13,6 +13,7 @@ const TweetBox = styled.div`
   line-height: 1.3125;
   font-size: 15px;
   color: rgb(255, 255, 255);
+  user-select: none;
 `;
 
   const ReactionBox = styled.div`
@@ -87,6 +88,8 @@ const TweetBox = styled.div`
       font-size: 21px;
       overflow-wrap: break-word;
       white-space: pre-line;
+      line-height: 1.3125;
+      user-select: text;
     `;
 
       const TweetInput = styled.textarea`
@@ -101,32 +104,7 @@ const TweetBox = styled.div`
         line-height: 1.3125;
         resize: none;
         outline: none;
-      `;
-      
-      const SaveButton = styled.button`
-        margin:0 auto;
-        margin-top: 14px;
-        display:block;
-        background-color: rgb(29,161,242);
-        color: white;
-        padding: 10px;
-        width: 150px;
-        border: none;
-        border-radius: 9999px;
-        font-size: 15px;
-        font-weight: 700;
-        outline:none;
-        transition: background-color 0.2s;
-        &:hover {
-          background-color: rgb(23, 138, 209);
-          cursor:pointer;
-        }
-        &:active {
-          outline: none;
-        }
-        &:focus {
-          outline:none;
-        }
+        user-select: text;
       `;
 
     const DateTimeBox = styled.div`
@@ -135,6 +113,23 @@ const TweetBox = styled.div`
       font-weight: 400;
       font-size: 14px;
       color: rgb(136, 153, 166);
+    `;
+
+    const DatetimeInput = styled.input`
+      background-color: white;
+      color:white;
+      border:none;
+      font-weight: 400;
+      font-size: 14px;
+      color: rgb(136, 153, 166);
+      line-height: 1.3125;
+      max-width:195px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      border-radius: 5px;
+      max-height:18px;
+        :focus {
+          outline:none;
+        }
     `;
 
       const DeviceSpan = styled.span`
@@ -158,6 +153,9 @@ const TweetBox = styled.div`
 
       const EngagementBox = styled.div`
         margin-right: 18px;
+        :hover {
+          cursor:pointer;
+        }
       `;
 
         const FatNumber = styled.span`
@@ -166,22 +164,139 @@ const TweetBox = styled.div`
           font-weight: 700;
         `;
 
+        const EngagementInput = styled.input`
+          color: black;
+          font-size: 14px;
+          font-weight: 700;
+          background-color: white;
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+          border-radius: 5px;
+          max-width:39px;
+          max-height:18px;
+          line-height: 1.3125;
+          border:none;
+          display:inline;
+          user-select: text;
+          :focus {
+            outline:none;
+          }
+        `;
+
+const SaveButton = styled.button`
+  margin:0 auto;
+  margin-top: 14px;
+  margin-bottom: 14px;
+  display:block;
+  background-color: rgb(29,161,242);
+  color: white;
+  padding: 10px;
+  width: 150px;
+  border: none;
+  border-radius: 9999px;
+  font-size: 15px;
+  font-weight: 700;
+  outline:none;
+  transition: background-color 0.2s;
+  &:hover {
+    background-color: rgb(23, 138, 209);
+    cursor:pointer;
+  }
+  &:active &:focus {
+    outline: none;
+  }
+`;
+
+//SET DEFAULT DATETIME (TIME -1 HOUR)
+let dt = new Date();
+const defaultTime = dt.toISOString().slice(0, 16);
+dt.setHours(dt.getHours() + 1);
+const maxTime = dt.toISOString().slice(0, 16);
 
 const Tweet = (props) => {
   //TWEET TEXT
-  const [textSaved, saveText] = useState(false); //has "save tweet text" already been clicked?
-  const [tweetText, updateText] = useState(''); //tweet text
+  const [tweetGenerated, saveText] = useState(false); //has "generate tweet" already been clicked?
+  const [tweetText, updateText] = useState(''); //tweet text state
   
   //TOGGLE DEVICE
   const deviceList = ["Twitter for iPhone", "Twitter Web App", "Twitter for Android"]
   const [deviceIndex, setDeviceIndex] = useState(0);
   const toggleDevice = () => {
-    if(deviceIndex < 2) {
-      setDeviceIndex(deviceIndex + 1);
-    } else {
-      setDeviceIndex(0);
+    if(!tweetGenerated) {
+      if(deviceIndex < 2) {
+        setDeviceIndex(deviceIndex + 1);
+      } else {
+        setDeviceIndex(0);
+      }
     }
   };
+
+  //TOGGLE TIME
+  const [datetimeSaved, setDatetime] = useState(defaultTime);
+  
+  //updates date + time when user selects new datetime
+  const updateDatetime = (i) => {
+    setDatetime(i);
+    setTime(updateTime(i));
+    setDate(updateDate(i));
+  }
+
+  //following two functions do not make use of built in js date manipulation due to those being unreliable
+
+  //returns time in displayable format calculated from given datetime
+  //https://stackoverflow.com/questions/8888491/how-do-you-display-javascript-datetime-in-12-hour-am-pm-format (flawed & old code, requires lots of edits)
+  const updateTime = (datetime) => {
+    let hours = datetime.slice(11, 13);
+    let minutes = datetime.slice(14, 16);
+    let ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    hours = hours.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false}) //modulo eats the 0 in single digit numbers (e.g. "05" becomes "5"). this line converts the int to a two letter string
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    let strTime = hours + ':' + minutes + ' ' + ampm;
+    return strTime;
+  }
+  const intialTime = updateTime(defaultTime);
+  const [timeSaved, setTime] = useState(intialTime);
+
+  //returns date in displayable format calculated from given datetime
+  const updateDate = (datetime) => {
+    const year = datetime.slice(0, 4);
+    const month = datetime.slice(5, 7);
+    const day = datetime.slice(8, 10);
+    const monthList = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+    const monthWritten = monthList[Number(month - 1)]
+    let strDate = monthWritten + ' ' + day + ', ' + year
+    return strDate;
+  }
+  const intialDate = updateDate(defaultTime);
+  const [dateSaved, setDate] = useState(intialDate);
+
+  //TOGGLE MUTABLE / IMMUTABLE
+  //func checks if "generate tweet" and blocks editing if true
+  const handleEditClick = (stateBoolUpdater) => {
+    if(!tweetGenerated) {
+      stateBoolUpdater(true);
+    }
+  }
+  //states that decide wether a part of the tweet is editable or not
+  const [timeSelectorVisible, toggleTimeSelector] = useState(false);
+  const [rtSelectorVisible, toggleRTSelector] = useState(false);
+  const [qtSelectorVisible, toggleQTSelector] = useState(false);
+  const [likeSelectorVisible, toggleLikeSelector] = useState(false);
+
+  //ENGAGEMENT STATES
+  const [rtAmount, setRT] = useState("2.3K");
+  const [qtAmount, setQT] = useState("420");
+  const [likeAmount, setLikes] = useState("12K");
+  
+  //SAVE BUTTON CLICK HANDLER
+  const saveButtonClick = () => {
+    saveText(true);
+    toggleTimeSelector(false);
+    toggleRTSelector(false);
+    toggleQTSelector(false);
+    toggleLikeSelector(false);
+  }
 
   return(
     <TweetBox> {/* container for whole tweet */}
@@ -205,32 +320,29 @@ const Tweet = (props) => {
       {/* "SAVE TWEET TEXT" FUNCTIONALITY" */}
       <ContentBox> {/* container for tweet AND engagement metrics */}
         <Content>
-          {textSaved ? tweetText : <TweetInput autoFocus="true" placeholder="type your tweet here" rows="4" value={tweetText} onChange={event => updateText(event.target.value)} />}
+          {tweetGenerated ? tweetText : <TweetInput autoFocus={true} placeholder="type your tweet here" rows="4" value={tweetText} onChange={event => updateText(event.target.value)} />}
         </Content>
-        {!textSaved && <div><SaveButton onClick={() => saveText(true)}>Save Tweet Text</SaveButton></div>}
-
         <DateTimeBox>
-          <span>{props.time}</span>
+          {timeSelectorVisible ? <DatetimeInput type="datetime-local" min="2006-03-21T21:50" max={maxTime} value={datetimeSaved} onChange={event => updateDatetime(event.target.value)} /> : <span onClick={() => handleEditClick(toggleTimeSelector)}><span>{timeSaved}</span><span> · </span><span>{dateSaved}</span></span> }
           <span> · </span>
-          <span>{props.date}</span>
-          <span> · </span>
-          <DeviceSpan onClick={toggleDevice}>{deviceList[deviceIndex]}</DeviceSpan>
+          <DeviceSpan onClick={() => toggleDevice()}>{deviceList[deviceIndex]}</DeviceSpan>
         </DateTimeBox>
         <Engagement>
-          <EngagementBox> {/* RT */}
-            <FatNumber>{props.rt}</FatNumber>
+          <EngagementBox onClick={() => handleEditClick(toggleRTSelector)}> {/* RT */}
+            {rtSelectorVisible ? <EngagementInput autoFocus={true} type="text" maxLength="4" value={rtAmount} onChange={(event) => setRT(event.target.value)} /> : <FatNumber>{rtAmount}</FatNumber>}
             <span> Retweets</span>
           </EngagementBox>
-          <EngagementBox> {/* QT */}
-            <FatNumber>{props.qt}</FatNumber>
+          <EngagementBox onClick={() => handleEditClick(toggleQTSelector)}> {/* QT */}
+            {qtSelectorVisible ? <EngagementInput autoFocus={true} type="text" maxLength="4" value={qtAmount} onChange={(event) => setQT(event.target.value)} /> : <FatNumber>{qtAmount}</FatNumber>}
             <span> Quote Tweets</span>
           </EngagementBox>
-          <EngagementBox> {/* Likes */}
-            <FatNumber>{props.likes}</FatNumber>
+          <EngagementBox onClick={() => handleEditClick(toggleLikeSelector)} style={{"margin-right":"0px"}}> {/* Likes */}
+            {likeSelectorVisible ? <EngagementInput autoFocus={true} type="text" maxLength="4" value={likeAmount} onChange={(event) => setLikes(event.target.value)} /> : <FatNumber>{likeAmount}</FatNumber>}
             <span> Likes</span>
           </EngagementBox>
         </Engagement>
       </ContentBox>
+      {!tweetGenerated && <div style={{"border-top": "1px solid rgb(56,68,77)"}}><SaveButton onClick={() => saveButtonClick()}>Generate Tweet</SaveButton></div>}
     </TweetBox>
   );
 }
