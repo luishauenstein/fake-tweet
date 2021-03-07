@@ -2,8 +2,8 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: ghostwhite;
 }
 
 a {
@@ -13,4 +13,26 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+/* TRANSITION ANIMATION STYLES */
+/* https://github.com/marnusw/react-css-transition-replace */
+
+/* tweet input/text */
+.switch-leave {
+  opacity: 1;
+}
+.switch-leave.switch-leave-active {
+  opacity: 0;
+}
+
+.switch-enter {
+  opacity: 0;
+}
+.switch-enter.switch-enter-active {
+  opacity: 1;
+}
+
+.switch-height {
+  transition: height 0.3s ease;
 }

@@ -1,3 +1,5 @@
+//EARLIER (STATIC, IMMUTABLE) VERSION OF Tweet.js WHERE PROPERTIES ARE PASSED AS PROPS
+
 import styled from 'styled-components'
 
 const TweetBox = styled.div`

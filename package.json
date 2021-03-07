@@ -8,12 +8,19 @@
     "start": "next start"
   },
   "dependencies": {
+    "dom-to-image": "^2.6.0",
+    "html2canvas": "^1.0.0-rc.7",
     "next": "10.0.6",
     "react": "17.0.1",
     "react-autosize-textarea": "^7.1.0",
+    "react-component-export-image": "^1.0.5",
+    "react-css-transition-replace": "^4.0.4",
     "react-dom": "17.0.1",
     "react-textarea-autosize": "^8.3.0",
-    "styled-components": "^5.2.1"
+    "react-transition-group": "^1.2.1",
+    "styled-components": "^5.2.1",
+    "use-react-screenshot": "^1.0.2",
+    "use-screenshot-hook": "^1.0.2"
   },
   "devDependencies": {
     "babel-plugin-styled-components": "^1.12.0"
