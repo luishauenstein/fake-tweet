@@ -4,8 +4,18 @@ import Tweet from "../components/Tweet.js";
 import { useRouter } from "next/router"; //https://nextjs.org/docs/api-reference/next/router
 
 export async function getStaticProps(context) {
+  const username = `@${context.params.username[0]}`;
+  const verified = false;
+  const name = "Pimmel Berger";
+  const profilePic = "https://pbs.twimg.com/profile_images/1364491704817098753/V22-Luf7_400x400.jpg";
+
   return {
-    props: {},
+    props: {
+      verified: verified,
+      username: username,
+      name: name,
+      profilePic: profilePic,
+    },
     revalidate: 30, //https://nextjs.org/docs/basic-features/data-fetching#incremental-static-regeneration
   };
 }
@@ -18,7 +28,7 @@ export async function getStaticPaths() {
   };
 }
 
-const Home = () => {
+const Home = (props) => {
   //THEMES:
   const dimMode = {
     bg: "rgb(21, 32, 43)",
@@ -61,10 +71,10 @@ const Home = () => {
   return (
     <ThemeProvider theme={themes[themeIndex]}>
       <Tweet
-        verified={true}
-        username="@elonmusk"
-        name="Elongated Muskrat"
-        profilepic="https://pbs.twimg.com/profile_images/1364491704817098753/V22-Luf7_400x400.jpg"
+        verified={props.verified}
+        username={props.username}
+        name={props.name}
+        profilePic={props.profilePic}
         toggleThemeFunc={toggleTheme}
       />
     </ThemeProvider>

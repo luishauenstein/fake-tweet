@@ -419,7 +419,7 @@ const Tweet = (props) => {
           <ProfileInfoBox>
             {" "}
             {/* container for profile info */}
-            <ProfilePic src={props.profilepic} />
+            <ProfilePic src={props.profilePic} />
             <UserIdentityBox>
               {" "}
               {/* container for name & username */}
