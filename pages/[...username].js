@@ -3,16 +3,18 @@ import React, { useState } from "react";
 import Tweet from "../components/Tweet.js";
 import { useRouter } from "next/router"; //https://nextjs.org/docs/api-reference/next/router
 
+//https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
 export async function getStaticProps(context) {
-  const username = `@${context.params.username[0]}`;
+  const username = context.params.username[0];
+
   const verified = false;
-  const name = "Pimmel Berger";
+  const name = "Hugh Kwan Kok";
   const profilePic = "https://pbs.twimg.com/profile_images/1364491704817098753/V22-Luf7_400x400.jpg";
 
   return {
     props: {
       verified: verified,
-      username: username,
+      username: `@${username}`,
       name: name,
       profilePic: profilePic,
     },
