@@ -10,6 +10,7 @@ export async function getStaticProps(context) {
   let profilePic = "https://pbs.twimg.com/profile_images/1218947352494592000/vuxzb82Y_400x400.jpg";
   let name = "fetching name...";
   let isError = false;
+  let revalTime = 30; //https://nextjs.org/docs/basic-features/data-fetching#incremental-static-regeneration
 
   //TWITTER API REQUEST
   const requestURL = `https://api.twitter.com/2/users/by/username/${username}?user.fields=verified,profile_image_url`;
@@ -28,6 +29,7 @@ export async function getStaticProps(context) {
       verified = result.data.verified;
       profilePic = result.data.profile_image_url.replace("_normal", "");
       name = result.data.name;
+      revalTime = 3600; //increase reval time if query is successful -> reduce amount of twitter api calls
     })
     .catch((error) => {
       console.log("error", error);
@@ -43,7 +45,7 @@ export async function getStaticProps(context) {
       profilePic: profilePic,
       error: isError,
     },
-    revalidate: 30, //https://nextjs.org/docs/basic-features/data-fetching#incremental-static-regeneration
+    revalidate: revalTime, //https://nextjs.org/docs/basic-features/data-fetching#incremental-static-regeneration
   };
 }
 
