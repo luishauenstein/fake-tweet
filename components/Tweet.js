@@ -5,8 +5,9 @@ import domtoimage from "dom-to-image"; //https://github.com/tsayen/dom-to-image
 
 const WrapperSection = styled.section`
   max-width: 598px; //iphonex width 375px
+  width: 100%;
   background-color: ${(props) => props.theme.bg};
-  margin: 0px;
+  margin: 0px auto;
 `;
 
 const TweetScreenshotOutline = styled.div`

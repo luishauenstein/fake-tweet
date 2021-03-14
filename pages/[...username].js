@@ -68,6 +68,7 @@ const PageWrapper = styled.div`
   color: ${(props) => props.theme.f};
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 
 const HeaderBox = styled.div``;
