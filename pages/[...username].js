@@ -19,14 +19,12 @@ export async function getStaticProps(context) {
   //mozilla fetch() documentation: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
   const requestURL = `https://api.twitter.com/2/users/by/username/${username}?user.fields=verified,profile_image_url`;
   const myHeaders = new Headers();
-  myHeaders.append(
-    "Authorization",
-    "Bearer AAAAAAAAAAAAAAAAAAAAAFYWMQEAAAAAXc5vr3LRT8jwXTHXLQ0PStGgU%2BI%3D4YeZT7J0XypVuTEDA09XAkE574n952XaB9v7XY8zTTpmlbceX2"
-  );
+  myHeaders.append("Authorization", `Bearer ${process.env.TWITTER_API_BEARER_TOKEN}`); // Next.js docs about environment variables: https://nextjs.org/docs/basic-features/environment-variables
   const myRequest = new Request(requestURL, {
     method: "GET",
     headers: myHeaders,
   });
+
   await fetch(myRequest)
     .then((response) => response.json())
     .then((result) => {
