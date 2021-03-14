@@ -7,7 +7,17 @@ const WrapperSection = styled.section`
   max-width: 598px; //iphonex width 375px
   background-color: ${(props) => props.theme.bg};
   margin: 0 auto;
-  border-radius: 10px;
+`;
+
+const TweetScreenshotOutline = styled.div`
+  @media screen and (min-width: 600px) {
+    border-style: solid;
+    border-width: 2px;
+    border-color: ${(props) => props.theme.highlight};
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 15px;
+  }
 `;
 
 const TweetScreenshotWrapper = styled.div`
@@ -388,151 +398,153 @@ const Tweet = (props) => {
 
   return (
     <WrapperSection>
-      <TweetScreenshotWrapper id="tweetScreenshotWrapper">
-        <TweetBox>
-          {" "}
-          {/* container for whole tweet */}
-          <ReactionBox /> {/* eventually later used for faking likes & retweets*/}
-          <ProfileInfoBox>
+      <TweetScreenshotOutline>
+        <TweetScreenshotWrapper id="tweetScreenshotWrapper">
+          <TweetBox>
             {" "}
-            {/* container for profile info */}
-            <ProfilePic src={props.profilePic} />
-            <UserIdentityBox>
+            {/* container for whole tweet */}
+            <ReactionBox /> {/* eventually later used for faking likes & retweets*/}
+            <ProfileInfoBox>
               {" "}
-              {/* container for name & username */}
-              <NameContainer>
+              {/* container for profile info */}
+              <ProfilePic src={props.profilePic} />
+              <UserIdentityBox>
                 {" "}
-                {/* container for name & checkmark SVG & settings SVG */}
-                <Name>{props.name}</Name>
-                <CheckmarkSVG>
-                  {props.verified && (
+                {/* container for name & username */}
+                <NameContainer>
+                  {" "}
+                  {/* container for name & checkmark SVG & settings SVG */}
+                  <Name>{props.name}</Name>
+                  <CheckmarkSVG>
+                    {props.verified && (
+                      <svg
+                        xmlnsXlink="http://www.w3.org/1999/xlink"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        aria-label="Verified account"
+                        className="r-jwli3a r-4qtqp9 r-yyyyoo r-1xvli5t r-9cviqr r-dnmrzs r-bnwqim r-1plcrui r-lrvibr"
+                      >
+                        <g>
+                          <path d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.998-3.818-3.998-.47 0-.92.084-1.336.25C14.818 2.415 13.51 1.5 12 1.5s-2.816.917-3.437 2.25c-.415-.165-.866-.25-1.336-.25-2.11 0-3.818 1.79-3.818 4 0 .494.083.964.237 1.4-1.272.65-2.147 2.018-2.147 3.6 0 1.495.782 2.798 1.942 3.486-.02.17-.032.34-.032.514 0 2.21 1.708 4 3.818 4 .47 0 .92-.086 1.335-.25.62 1.334 1.926 2.25 3.437 2.25 1.512 0 2.818-.916 3.437-2.25.415.163.865.248 1.336.248 2.11 0 3.818-1.79 3.818-4 0-.174-.012-.344-.033-.513 1.158-.687 1.943-1.99 1.943-3.484zm-6.616-3.334l-4.334 6.5c-.145.217-.382.334-.625.334-.143 0-.288-.04-.416-.126l-.115-.094-2.415-2.415c-.293-.293-.293-.768 0-1.06s.768-.294 1.06 0l1.77 1.767 3.825-5.74c.23-.345.696-.436 1.04-.207.346.23.44.696.21 1.04z" />
+                        </g>
+                      </svg>
+                    )}
+                  </CheckmarkSVG>
+                  <SettingsSVG>
                     <svg
                       xmlnsXlink="http://www.w3.org/1999/xlink"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
-                      aria-label="Verified account"
-                      className="r-jwli3a r-4qtqp9 r-yyyyoo r-1xvli5t r-9cviqr r-dnmrzs r-bnwqim r-1plcrui r-lrvibr"
+                      className="r-4qtqp9 r-yyyyoo r-ip8ujx r-dnmrzs r-1p4rafz r-bnwqim r-1plcrui r-lrvibr"
                     >
                       <g>
-                        <path d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.998-3.818-3.998-.47 0-.92.084-1.336.25C14.818 2.415 13.51 1.5 12 1.5s-2.816.917-3.437 2.25c-.415-.165-.866-.25-1.336-.25-2.11 0-3.818 1.79-3.818 4 0 .494.083.964.237 1.4-1.272.65-2.147 2.018-2.147 3.6 0 1.495.782 2.798 1.942 3.486-.02.17-.032.34-.032.514 0 2.21 1.708 4 3.818 4 .47 0 .92-.086 1.335-.25.62 1.334 1.926 2.25 3.437 2.25 1.512 0 2.818-.916 3.437-2.25.415.163.865.248 1.336.248 2.11 0 3.818-1.79 3.818-4 0-.174-.012-.344-.033-.513 1.158-.687 1.943-1.99 1.943-3.484zm-6.616-3.334l-4.334 6.5c-.145.217-.382.334-.625.334-.143 0-.288-.04-.416-.126l-.115-.094-2.415-2.415c-.293-.293-.293-.768 0-1.06s.768-.294 1.06 0l1.77 1.767 3.825-5.74c.23-.345.696-.436 1.04-.207.346.23.44.696.21 1.04z" />
+                        <circle cx="5" cy="12" r="2" />
+                        <circle cx="12" cy="12" r="2" />
+                        <circle cx="19" cy="12" r="2" />
                       </g>
                     </svg>
+                  </SettingsSVG>
+                </NameContainer>
+                <Username>{props.username}</Username>
+              </UserIdentityBox>
+            </ProfileInfoBox>
+            <ContentBox>
+              {" "}
+              {/* container for tweet AND engagement metrics */}
+              <Content>
+                <ReactCSSTransitionReplace
+                  transitionName="switch"
+                  transitionEnterTimeout={300}
+                  transitionLeaveTimeout={300}
+                >
+                  {tweetGenerated ? (
+                    <span key={1}>{tweetText}</span>
+                  ) : (
+                    <TweetInput
+                      key={2}
+                      autoFocus={true}
+                      placeholder="type your tweet here"
+                      rows="4"
+                      value={tweetText}
+                      onChange={(event) => updateText(event.target.value)}
+                    />
                   )}
-                </CheckmarkSVG>
-                <SettingsSVG>
-                  <svg
-                    xmlnsXlink="http://www.w3.org/1999/xlink"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    className="r-4qtqp9 r-yyyyoo r-ip8ujx r-dnmrzs r-1p4rafz r-bnwqim r-1plcrui r-lrvibr"
-                  >
-                    <g>
-                      <circle cx="5" cy="12" r="2" />
-                      <circle cx="12" cy="12" r="2" />
-                      <circle cx="19" cy="12" r="2" />
-                    </g>
-                  </svg>
-                </SettingsSVG>
-              </NameContainer>
-              <Username>{props.username}</Username>
-            </UserIdentityBox>
-          </ProfileInfoBox>
-          <ContentBox>
-            {" "}
-            {/* container for tweet AND engagement metrics */}
-            <Content>
-              <ReactCSSTransitionReplace
-                transitionName="switch"
-                transitionEnterTimeout={300}
-                transitionLeaveTimeout={300}
-              >
-                {tweetGenerated ? (
-                  <span key={1}>{tweetText}</span>
-                ) : (
-                  <TweetInput
-                    key={2}
-                    autoFocus={true}
-                    placeholder="type your tweet here"
-                    rows="4"
-                    value={tweetText}
-                    onChange={(event) => updateText(event.target.value)}
-                  />
-                )}
-              </ReactCSSTransitionReplace>
-            </Content>
-            <DateTimeBox>
-              {timeSelectorVisible ? (
-                <DatetimeInput
-                  key={3}
-                  type="datetime-local"
-                  min="2006-03-21T21:50"
-                  max={maxTime}
-                  value={datetimeSaved}
-                  onChange={(event) => updateDatetime(event.target.value)}
-                />
-              ) : (
-                <span key={4} onClick={() => handleEditClick(toggleTimeSelector)}>
-                  <span>{timeSaved}</span>
-                  <span> · </span>
-                  <span>{dateSaved}</span>
-                </span>
-              )}
-              <span> · </span>
-              <DeviceSpan onClick={() => toggleDevice()}>{deviceList[deviceIndex]}</DeviceSpan>
-            </DateTimeBox>
-            <Engagement>
-              <EngagementBox onClick={() => handleEditClick(toggleRTSelector)}>
-                {" "}
-                {/* RT */}
-                {rtSelectorVisible ? (
-                  <EngagementInput
-                    autoFocus={true}
-                    type="text"
-                    maxLength="6"
-                    value={rtAmount}
-                    onChange={(event) => setRT(event.target.value)}
+                </ReactCSSTransitionReplace>
+              </Content>
+              <DateTimeBox>
+                {timeSelectorVisible ? (
+                  <DatetimeInput
+                    key={3}
+                    type="datetime-local"
+                    min="2006-03-21T21:50"
+                    max={maxTime}
+                    value={datetimeSaved}
+                    onChange={(event) => updateDatetime(event.target.value)}
                   />
                 ) : (
-                  <FatNumber>{rtAmount}</FatNumber>
+                  <span key={4} onClick={() => handleEditClick(toggleTimeSelector)}>
+                    <span>{timeSaved}</span>
+                    <span> · </span>
+                    <span>{dateSaved}</span>
+                  </span>
                 )}
-                <span> Retweets</span>
-              </EngagementBox>
-              <EngagementBox onClick={() => handleEditClick(toggleQTSelector)}>
-                {" "}
-                {/* QT */}
-                {qtSelectorVisible ? (
-                  <EngagementInput
-                    autoFocus={true}
-                    type="text"
-                    maxLength="6"
-                    value={qtAmount}
-                    onChange={(event) => setQT(event.target.value)}
-                  />
-                ) : (
-                  <FatNumber>{qtAmount}</FatNumber>
-                )}
-                <span style={{ "white-space": "nowrap" }}> Quote Tweets</span>
-              </EngagementBox>
-              <EngagementBox onClick={() => handleEditClick(toggleLikeSelector)} style={{ marginRight: "0px" }}>
-                {" "}
-                {/* Likes */}
-                {likeSelectorVisible ? (
-                  <EngagementInput
-                    autoFocus={true}
-                    type="text"
-                    maxLength="6"
-                    value={likeAmount}
-                    onChange={(event) => setLikes(event.target.value)}
-                  />
-                ) : (
-                  <FatNumber>{likeAmount}</FatNumber>
-                )}
-                <span> Likes</span>
-              </EngagementBox>
-            </Engagement>
-          </ContentBox>
-        </TweetBox>
-      </TweetScreenshotWrapper>
+                <span> · </span>
+                <DeviceSpan onClick={() => toggleDevice()}>{deviceList[deviceIndex]}</DeviceSpan>
+              </DateTimeBox>
+              <Engagement>
+                <EngagementBox onClick={() => handleEditClick(toggleRTSelector)}>
+                  {" "}
+                  {/* RT */}
+                  {rtSelectorVisible ? (
+                    <EngagementInput
+                      autoFocus={true}
+                      type="text"
+                      maxLength="6"
+                      value={rtAmount}
+                      onChange={(event) => setRT(event.target.value)}
+                    />
+                  ) : (
+                    <FatNumber>{rtAmount}</FatNumber>
+                  )}
+                  <span> Retweets</span>
+                </EngagementBox>
+                <EngagementBox onClick={() => handleEditClick(toggleQTSelector)}>
+                  {" "}
+                  {/* QT */}
+                  {qtSelectorVisible ? (
+                    <EngagementInput
+                      autoFocus={true}
+                      type="text"
+                      maxLength="6"
+                      value={qtAmount}
+                      onChange={(event) => setQT(event.target.value)}
+                    />
+                  ) : (
+                    <FatNumber>{qtAmount}</FatNumber>
+                  )}
+                  <span style={{ whiteSpace: "nowrap" }}> Quote Tweets</span>
+                </EngagementBox>
+                <EngagementBox onClick={() => handleEditClick(toggleLikeSelector)} style={{ marginRight: "0px" }}>
+                  {" "}
+                  {/* Likes */}
+                  {likeSelectorVisible ? (
+                    <EngagementInput
+                      autoFocus={true}
+                      type="text"
+                      maxLength="6"
+                      value={likeAmount}
+                      onChange={(event) => setLikes(event.target.value)}
+                    />
+                  ) : (
+                    <FatNumber>{likeAmount}</FatNumber>
+                  )}
+                  <span> Likes</span>
+                </EngagementBox>
+              </Engagement>
+            </ContentBox>
+          </TweetBox>
+        </TweetScreenshotWrapper>
+      </TweetScreenshotOutline>
       {/* "GENERATE TWEET" BUTTON" */}
       {!tweetGenerated ? (
         <ButtonContainer>
@@ -580,8 +592,8 @@ const Tweet = (props) => {
             onClick={() => generateTweet(false)}
             style={{
               display: "flex",
-              "align-items": "center",
-              "justify-content": "center",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
             <svg

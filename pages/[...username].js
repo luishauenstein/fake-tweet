@@ -1,4 +1,4 @@
-import { ThemeProvider } from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import React, { useState } from "react";
 import Tweet from "../components/Tweet.js";
 import { useRouter } from "next/router"; //https://nextjs.org/docs/api-reference/next/router
@@ -6,13 +6,15 @@ import { useRouter } from "next/router"; //https://nextjs.org/docs/api-reference
 //https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
 export async function getStaticProps(context) {
   const username = context.params.username[0];
+  //initial values
   let verified = false;
-  let profilePic = "https://pbs.twimg.com/profile_images/1218947352494592000/vuxzb82Y_400x400.jpg";
+  let profilePic = "https://abs.twimg.com/sticky/default_profile_images/default_profile_bigger.png"; //default twitter profile pic
   let name = "fetching name...";
   let isError = false;
   let revalTime = 30; //https://nextjs.org/docs/basic-features/data-fetching#incremental-static-regeneration
 
   //TWITTER API REQUEST
+  //mozilla fetch() documentation: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
   const requestURL = `https://api.twitter.com/2/users/by/username/${username}?user.fields=verified,profile_image_url`;
   const myHeaders = new Headers();
   myHeaders.append(
@@ -29,7 +31,7 @@ export async function getStaticProps(context) {
       verified = result.data.verified;
       profilePic = result.data.profile_image_url.replace("_normal", "");
       name = result.data.name;
-      revalTime = 3600; //increase reval time if query is successful -> reduce amount of twitter api calls
+      revalTime = 3600; //increase reval time to one hour if query is successful -> reduce amount of twitter api calls
     })
     .catch((error) => {
       console.log("error", error);
@@ -56,6 +58,14 @@ export async function getStaticPaths() {
     fallback: true, //https://nextjs.org/docs/basic-features/data-fetching#fallback-true
   };
 }
+
+//STYLED COMPONENTS
+const PageWrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: ${(props) => props.theme.bg};
+`;
 
 const Home = (props) => {
   //THEMES:
@@ -99,14 +109,15 @@ const Home = (props) => {
 
   return (
     <ThemeProvider theme={themes[themeIndex]}>
-      <Tweet
-        verified={props.verified}
-        username={props.username}
-        name={props.name}
-        profilePic={props.profilePic}
-        toggleThemeFunc={toggleTheme}
-      />
-      <p>{props.error}</p>
+      <PageWrapper>
+        <Tweet
+          verified={props.verified}
+          username={props.username}
+          name={props.name}
+          profilePic={props.profilePic}
+          toggleThemeFunc={toggleTheme}
+        />
+      </PageWrapper>
     </ThemeProvider>
   );
 };
