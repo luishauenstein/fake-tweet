@@ -6,10 +6,34 @@ import { useRouter } from "next/router"; //https://nextjs.org/docs/api-reference
 //https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
 export async function getStaticProps(context) {
   const username = context.params.username[0];
+  let verified = false;
+  let profilePic = "https://pbs.twimg.com/profile_images/1218947352494592000/vuxzb82Y_400x400.jpg";
+  let name = "fetching name...";
+  let isError = false;
 
-  const verified = false;
-  const name = "Hugh Kwan Kok";
-  const profilePic = "https://pbs.twimg.com/profile_images/1364491704817098753/V22-Luf7_400x400.jpg";
+  //TWITTER API REQUEST
+  const requestURL = `https://api.twitter.com/2/users/by/username/${username}?user.fields=verified,profile_image_url`;
+  const myHeaders = new Headers();
+  myHeaders.append(
+    "Authorization",
+    "Bearer AAAAAAAAAAAAAAAAAAAAAFYWMQEAAAAAXc5vr3LRT8jwXTHXLQ0PStGgU%2BI%3D4YeZT7J0XypVuTEDA09XAkE574n952XaB9v7XY8zTTpmlbceX2"
+  );
+  const myRequest = new Request(requestURL, {
+    method: "GET",
+    headers: myHeaders,
+  });
+  await fetch(myRequest)
+    .then((response) => response.json())
+    .then((result) => {
+      verified = result.data.verified;
+      profilePic = result.data.profile_image_url;
+      name = result.data.name;
+    })
+    .catch((error) => {
+      console.log("error", error);
+      isError = true;
+      name = "user not found";
+    });
 
   return {
     props: {
@@ -17,6 +41,7 @@ export async function getStaticProps(context) {
       username: `@${username}`,
       name: name,
       profilePic: profilePic,
+      error: isError,
     },
     revalidate: 30, //https://nextjs.org/docs/basic-features/data-fetching#incremental-static-regeneration
   };
@@ -79,6 +104,7 @@ const Home = (props) => {
         profilePic={props.profilePic}
         toggleThemeFunc={toggleTheme}
       />
+      <p>{props.error}</p>
     </ThemeProvider>
   );
 };
