@@ -71,9 +71,18 @@ const PageWrapper = styled.div`
   align-items: center;
 `;
 
-const HeaderBox = styled.div``;
+const HeaderBox = styled.div`
+  max-width: 598px;
+  font-weight: 700;
+  padding: 15px 5px 15px 5px;
+  text-align: center;
+`;
 
-const OrBox = styled.div``;
+const OrBox = styled.div`
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 65%; //a bit of a sloppy solution, can be changed later if it causes problems
+`;
 
 const Home = (props) => {
   //THEMES:
@@ -123,8 +132,8 @@ const Home = (props) => {
       {/* PageWrapper: bg color & container, see exact properties in styled component css above */}
       <PageWrapper>
         <HeaderBox>
-          Generate your custom @scooterbraun Tweet. Click on any property (time, device, engagement) if you want to
-          change it.
+          <div>Enter some text and generate your custom @scooterbraun Tweet.</div>
+          <div style={{ marginTop: "15px" }}>Click on any property (time, device, engagement) to change it.</div>
         </HeaderBox>
         <Tweet
           verified={props.verified}

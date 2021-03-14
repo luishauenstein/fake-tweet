@@ -230,6 +230,7 @@ const ButtonContainer = styled.div`
 `;
 
 const TwitterButton = styled.button`
+  font-family: nunito, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   display: inline;
   margin-left: 5px;
   margin-right: 5px;
@@ -556,6 +557,8 @@ const Tweet = (props) => {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              width: "40px",
+              height: "40px",
             }}
           >
             <svg
@@ -596,6 +599,8 @@ const Tweet = (props) => {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              width: "40px",
+              height: "40px",
             }}
           >
             <svg
