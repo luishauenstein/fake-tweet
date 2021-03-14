@@ -63,7 +63,7 @@ export async function getStaticPaths() {
 const PageWrapper = styled.div`
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  overflow: scroll;
   background-color: ${(props) => props.theme.bg};
   color: ${(props) => props.theme.f};
   display: flex;
@@ -76,30 +76,32 @@ const HeaderBox = styled.div`
   font-weight: 700;
   padding: 15px 5px 15px 5px;
   text-align: center;
+  line-height: 1;
 `;
 
 const OrBox = styled.div`
   font-weight: 400;
   font-size: 30px;
-  line-height: 65%; //a bit of a sloppy solution, can be changed later if it causes problems
+  line-height: 100%; //a bit of a sloppy solution, can be changed later if it causes problems
+  padding-bottom: 5px;
 `;
 
 const Home = (props) => {
   //THEMES:
   const dimMode = {
     //theme index 0
-    bg: "rgb(21, 32, 43)",
-    f: "rgb(255, 255, 255)",
-    sf: "rgb(136, 153, 166)",
-    lines: "rgb(56, 68, 77)",
-    highlight: "rgb(255, 255, 255)",
+    bg: "rgb(21, 32, 43)", //background
+    f: "rgb(255, 255, 255)", //font
+    sf: "rgb(136, 153, 166)", //small font
+    lines: "rgb(56, 68, 77)", //lines
+    highlight: "rgb(255, 255, 255)", //highlight
   };
 
   const lightMode = {
     //theme index 1
     bg: "rgb(255, 255, 255)",
     f: "rgb(15, 20, 25)",
-    sf: "rgb(91, 112, 131);",
+    sf: "rgb(91, 112, 131)",
     lines: "rgb(235, 238, 240)",
     highlight: "rgb(29, 161, 242)",
   };

@@ -582,7 +582,7 @@ const Tweet = (props) => {
           </TwitterButton>
           <TwitterButton
             style={{
-              width: "150px",
+              width: "160px",
               opacity: `${generateButtonOpacity}`,
               transition: "all 0.2s",
             }}
@@ -616,8 +616,8 @@ const Tweet = (props) => {
               />
             </svg>
           </TwitterButton>
-          <TwitterButton onClick={() => downloadScreenshot()} style={{ width: "150px", transition: "all 0.2s" }}>
-            Download as JPG
+          <TwitterButton onClick={() => downloadScreenshot()} style={{ width: "160px", transition: "all 0.2s" }}>
+            Download as JPEG
           </TwitterButton>
         </ButtonContainer>
       )}
