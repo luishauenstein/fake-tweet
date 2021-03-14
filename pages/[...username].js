@@ -1,7 +1,9 @@
 import styled, { ThemeProvider } from "styled-components";
 import React, { useState } from "react";
-import Tweet from "../components/Tweet.js";
 import { useRouter } from "next/router"; //https://nextjs.org/docs/api-reference/next/router
+
+import Tweet from "../components/Tweet.js";
+import SearchBox from "../components/SearchBox.js";
 
 //https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
 export async function getStaticProps(context) {
@@ -65,11 +67,19 @@ const PageWrapper = styled.div`
   height: 100vh;
   overflow: hidden;
   background-color: ${(props) => props.theme.bg};
+  color: ${(props) => props.theme.f};
+  display: flex;
+  flex-direction: column;
 `;
+
+const HeaderBox = styled.div``;
+
+const OrBox = styled.div``;
 
 const Home = (props) => {
   //THEMES:
   const dimMode = {
+    //theme index 0
     bg: "rgb(21, 32, 43)",
     f: "rgb(255, 255, 255)",
     sf: "rgb(136, 153, 166)",
@@ -78,6 +88,7 @@ const Home = (props) => {
   };
 
   const lightMode = {
+    //theme index 1
     bg: "rgb(255, 255, 255)",
     f: "rgb(15, 20, 25)",
     sf: "rgb(91, 112, 131);",
@@ -86,6 +97,7 @@ const Home = (props) => {
   };
 
   const darkMode = {
+    //theme index 2
     bg: "rgb(15, 20, 25)",
     f: "rgb(217, 217, 217)",
     sf: "rgb(110, 118, 125)",
@@ -109,7 +121,12 @@ const Home = (props) => {
 
   return (
     <ThemeProvider theme={themes[themeIndex]}>
+      {/* PageWrapper: bg color & container, see exact properties in styled component css above */}
       <PageWrapper>
+        <HeaderBox>
+          Generate your custom @scooterbraun Tweet. Click on any property (time, device, engagement) if you want to
+          change it.
+        </HeaderBox>
         <Tweet
           verified={props.verified}
           username={props.username}
@@ -117,6 +134,8 @@ const Home = (props) => {
           profilePic={props.profilePic}
           toggleThemeFunc={toggleTheme}
         />
+        <OrBox>OR</OrBox>
+        <SearchBox placeholder="Enter another username" />
       </PageWrapper>
     </ThemeProvider>
   );

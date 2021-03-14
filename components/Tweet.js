@@ -6,17 +6,18 @@ import domtoimage from "dom-to-image"; //https://github.com/tsayen/dom-to-image
 const WrapperSection = styled.section`
   max-width: 598px; //iphonex width 375px
   background-color: ${(props) => props.theme.bg};
-  margin: 0 auto;
+  margin: 0px;
 `;
 
 const TweetScreenshotOutline = styled.div`
+  border-style: solid none solid none;
+  border-width: 2px;
+  border-color: ${(props) => props.theme.highlight};
+  overflow: hidden;
+  //for screens wider than max tweet-width:
   @media screen and (min-width: 600px) {
     border-style: solid;
-    border-width: 2px;
-    border-color: ${(props) => props.theme.highlight};
     border-radius: 10px;
-    overflow: hidden;
-    margin-top: 15px;
   }
 `;
 
