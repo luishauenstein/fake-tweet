@@ -26,7 +26,7 @@ export async function getStaticProps(context) {
     .then((response) => response.json())
     .then((result) => {
       verified = result.data.verified;
-      profilePic = result.data.profile_image_url;
+      profilePic = result.data.profile_image_url.replace("_normal", "");
       name = result.data.name;
     })
     .catch((error) => {

@@ -22,8 +22,7 @@ const TweetBox = styled.div`
   margin-right: 15px;
   display: flex;
   flex-direction: column;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   line-height: 1.3125;
   font-size: 15px;
   color: ${(props) => props.theme.f};
@@ -46,6 +45,7 @@ const ProfilePic = styled.img`
   height: 46px;
   border-radius: 50%;
   margin-right: 9px;
+  object-fit: cover;
 `;
 
 const UserIdentityBox = styled.div`
@@ -116,8 +116,7 @@ const TweetInput = styled.textarea`
   font-weight: 400;
   font-size: 21px;
   width: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   line-height: 1.3125;
   resize: none;
   outline: none;
@@ -146,8 +145,7 @@ const DatetimeInput = styled.input`
   color: ${(props) => props.theme.bg};
   line-height: 1.3125;
   max-width: 205px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   border-radius: 5px;
   max-height: 18px;
   :focus {
@@ -198,8 +196,7 @@ const EngagementInput = styled.input`
   font-size: 14px;
   font-weight: 700;
   background-color: ${(props) => props.theme.highlight};
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   border-radius: 5px;
   max-width: 39px;
   max-height: 18px;
@@ -251,18 +248,12 @@ const Tweet = (props) => {
   //"generate tweet button opacity"
   const [generateButtonOpacity, setgenerateButtonOpacity] = useState("50%");
   const updateText = (value) => {
-    value == ""
-      ? setgenerateButtonOpacity("50%")
-      : setgenerateButtonOpacity("100%"); //makes button opaque if unclickable
+    value == "" ? setgenerateButtonOpacity("50%") : setgenerateButtonOpacity("100%"); //makes button opaque if unclickable
     setText(value);
   };
 
   //TOGGLE DEVICE
-  const deviceList = [
-    "Twitter for iPhone",
-    "Twitter Web App",
-    "Twitter for Android",
-  ];
+  const deviceList = ["Twitter for iPhone", "Twitter Web App", "Twitter for Android"];
   const [deviceIndex, setDeviceIndex] = useState(0);
   const toggleDevice = () => {
     if (!tweetGenerated) {
@@ -317,20 +308,7 @@ const Tweet = (props) => {
     const year = datetime.slice(0, 4);
     const month = datetime.slice(5, 7);
     const day = datetime.slice(8, 10);
-    const monthList = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
+    const monthList = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     const monthWritten = monthList[Number(month - 1)];
     let strDate = monthWritten + " " + day + ", " + year;
     return strDate;
@@ -384,7 +362,7 @@ const Tweet = (props) => {
   //https://github.com/tsayen/dom-to-image
   const downloadScreenshot = () => {
     //scales component to improve quality: https://github.com/tsayen/dom-to-image/issues/332#issuecomment-626108207
-    const scale = 3;
+    const scale = 4;
     const node = document.getElementById("tweetScreenshotWrapper");
     const style = {
       transform: "scale(" + scale + ")",
@@ -414,8 +392,7 @@ const Tweet = (props) => {
         <TweetBox>
           {" "}
           {/* container for whole tweet */}
-          <ReactionBox />{" "}
-          {/* eventually later used for faking likes & retweets*/}
+          <ReactionBox /> {/* eventually later used for faking likes & retweets*/}
           <ProfileInfoBox>
             {" "}
             {/* container for profile info */}
@@ -494,19 +471,14 @@ const Tweet = (props) => {
                   onChange={(event) => updateDatetime(event.target.value)}
                 />
               ) : (
-                <span
-                  key={4}
-                  onClick={() => handleEditClick(toggleTimeSelector)}
-                >
+                <span key={4} onClick={() => handleEditClick(toggleTimeSelector)}>
                   <span>{timeSaved}</span>
                   <span> · </span>
                   <span>{dateSaved}</span>
                 </span>
               )}
               <span> · </span>
-              <DeviceSpan onClick={() => toggleDevice()}>
-                {deviceList[deviceIndex]}
-              </DeviceSpan>
+              <DeviceSpan onClick={() => toggleDevice()}>{deviceList[deviceIndex]}</DeviceSpan>
             </DateTimeBox>
             <Engagement>
               <EngagementBox onClick={() => handleEditClick(toggleRTSelector)}>
@@ -541,10 +513,7 @@ const Tweet = (props) => {
                 )}
                 <span style={{ "white-space": "nowrap" }}> Quote Tweets</span>
               </EngagementBox>
-              <EngagementBox
-                onClick={() => handleEditClick(toggleLikeSelector)}
-                style={{ marginRight: "0px" }}
-              >
+              <EngagementBox onClick={() => handleEditClick(toggleLikeSelector)} style={{ marginRight: "0px" }}>
                 {" "}
                 {/* Likes */}
                 {likeSelectorVisible ? (
@@ -571,8 +540,8 @@ const Tweet = (props) => {
             onClick={() => props.toggleThemeFunc()}
             style={{
               display: "flex",
-              "align-items": "center",
-              "justify-content": "center",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
             <svg
@@ -628,10 +597,7 @@ const Tweet = (props) => {
               />
             </svg>
           </TwitterButton>
-          <TwitterButton
-            onClick={() => downloadScreenshot()}
-            style={{ width: "150px", transition: "all 0.2s" }}
-          >
+          <TwitterButton onClick={() => downloadScreenshot()} style={{ width: "150px", transition: "all 0.2s" }}>
             Download as JPG
           </TwitterButton>
         </ButtonContainer>
