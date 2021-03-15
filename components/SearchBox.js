@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled, { withTheme } from "styled-components";
+import { useRouter } from "next/router"; //https://nextjs.org/docs/api-reference/next/router
 
 const FormContainer = styled.div`
   display: flex;
@@ -55,6 +56,14 @@ const SearchBox = (props) => {
     setIconColor(props.theme.sf);
   };
 
+  //submit functionality
+  const router = useRouter(); //router for routing to new username onSubmit
+  const handleSubmit = (e) => {
+    e.preventDefault(); //preventDefault() to prevent refresh on form submit
+    router.push(`/${currentInput}`);
+    setInput("");
+  };
+
   return (
     <FormContainer>
       <SVGContainer>
@@ -66,7 +75,7 @@ const SearchBox = (props) => {
           />
         </svg>
       </SVGContainer>
-      <form style={{ width: "100%" }}>
+      <form style={{ width: "100%" }} onSubmit={(e) => handleSubmit(e)}>
         <SearchUserInput
           type="text"
           placeholder={props.placeholder}
