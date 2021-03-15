@@ -1,16 +1,20 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { withTheme } from "styled-components";
 
 const FormContainer = styled.div`
   display: flex;
   flex-direction: flex-row;
-  background-color: ${(props) => props.theme.lines};
+  background-color: ${(props) => props.theme.searchBar};
   height: 40px;
   box-sizing: border-box;
-  border: none;
+  border: 1px solid transparent;
   border-radius: 9999px;
   max-width: 602px;
   width: calc(100% - 30px);
+  overflow: hidden;
+  :focus-within {
+    border: 1px solid ${(props) => props.theme.highlight};
+  }
 `;
 
 const SVGContainer = styled.div`
@@ -34,22 +38,32 @@ const SearchUserInput = styled.input`
   }
   :focus {
     outline: none;
+    color: ;
   }
 `;
 
 const SearchBox = (props) => {
   const [currentInput, setInput] = useState("");
 
+  //changing user icon color on focus and unfocus
+  //https://reactjs.org/docs/events.html#focus-events
+  const [iconColor, setIconColor] = useState(props.theme.sf);
+  const handleFocus = () => {
+    setIconColor(props.theme.highlight);
+  };
+  const handleBlur = () => {
+    setIconColor(props.theme.sf);
+  };
+
   return (
     <FormContainer>
       <SVGContainer>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-          <g fill="rgb(91, 112, 131)">
-            <path
-              d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"
-              fill="rgb(91, 112, 131)"
-            />
-          </g>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px">
+          <path d="M0 0h24v24H0V0z" fill="none" />
+          <path
+            fill={iconColor}
+            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"
+          />
         </svg>
       </SVGContainer>
       <form style={{ width: "100%" }}>
@@ -58,10 +72,13 @@ const SearchBox = (props) => {
           placeholder={props.placeholder}
           value={currentInput}
           onChange={(event) => setInput(event.target.value)}
+          //https://reactjs.org/docs/events.html#focus-events
+          onFocus={() => handleFocus()}
+          onBlur={() => handleBlur()}
         />
       </form>
     </FormContainer>
   );
 };
 
-export default SearchBox;
+export default withTheme(SearchBox); // https://styled-components.com/docs/advanced#via-withtheme-higherorder-component
