@@ -13,7 +13,8 @@ const FormContainer = styled.div`
   width: calc(100% - 30px);
   overflow: hidden;
   :focus-within {
-    border: 1px solid ${(props) => props.theme.highlight};
+    border: 1px solid rgb(29, 161, 242);
+    background-color: ${(props) => props.theme.bg};
   }
 `;
 
@@ -31,14 +32,13 @@ const SearchUserInput = styled.input`
   background: transparent;
   border: none;
   font-size: 15px;
-  color: ${(props) => props.theme.sf};
+  color: ${(props) => props.theme.f};
   ::placeholder {
     opacity: 1;
     color: ${(props) => props.theme.sf};
   }
   :focus {
     outline: none;
-    color: ;
   }
 `;
 
@@ -49,7 +49,7 @@ const SearchBox = (props) => {
   //https://reactjs.org/docs/events.html#focus-events
   const [iconColor, setIconColor] = useState(props.theme.sf);
   const handleFocus = () => {
-    setIconColor(props.theme.highlight);
+    setIconColor("rgb(29, 161, 242)"); //twitter blue
   };
   const handleBlur = () => {
     setIconColor(props.theme.sf);
