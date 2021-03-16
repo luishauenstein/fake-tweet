@@ -1,6 +1,7 @@
 import styled, { ThemeProvider } from "styled-components";
 import React, { useState } from "react";
 import { useRouter } from "next/router"; //https://nextjs.org/docs/api-reference/next/router
+import Link from "next/link";
 
 import Tweet from "../components/Tweet.js";
 import SearchBox from "../components/SearchBox.js";
@@ -79,6 +80,14 @@ const HeaderBox = styled.div`
   line-height: 1;
 `;
 
+const TwitterLink = styled.a`
+  color: rgb(29, 161, 242);
+  :hover,
+  :active {
+    text-decoration: underline;
+  }
+`;
+
 const OrBox = styled.div`
   font-weight: 400;
   font-size: 30px;
@@ -137,7 +146,14 @@ const Home = (props) => {
       {/* PageWrapper: bg color & container, see exact properties in styled component css above */}
       <PageWrapper>
         <HeaderBox>
-          <div>Enter some text and generate your custom @scooterbraun Tweet.</div>
+          <div>
+            Enter some text and generate your custom{" "}
+            {/* https://nextjs.org/docs/api-reference/next/link#if-the-child-is-a-custom-component-that-wraps-an-a-tag */}
+            <Link href={`https://twitter.com/${props.username}`} passHref>
+              <TwitterLink>{props.username}</TwitterLink>
+            </Link>{" "}
+            Tweet.
+          </div>
           <div style={{ marginTop: "15px" }}>Click on any property (time, device, engagement) to change it.</div>
         </HeaderBox>
         <Tweet
