@@ -1,10 +1,10 @@
 import styled, { ThemeProvider } from "styled-components";
 import React, { useState } from "react";
 import { useRouter } from "next/router"; //https://nextjs.org/docs/api-reference/next/router
-import Link from "next/link";
 
 import Tweet from "../components/Tweet.js";
 import SearchBox from "../components/SearchBox.js";
+import Header from "../components/Header";
 
 //https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
 export async function getStaticProps(context) {
@@ -61,18 +61,7 @@ export async function getStaticPaths() {
 }
 
 //STYLED COMPONENTS
-const PageWrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
-  overflow: scroll;
-  background-color: ${(props) => props.theme.bg};
-  color: ${(props) => props.theme.f};
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const HeaderBox = styled.div`
+const ExplanationText = styled.div`
   max-width: 598px;
   font-weight: 700;
   padding: 15px 5px 15px 5px;
@@ -91,50 +80,11 @@ const TwitterLink = styled.a`
 const OrBox = styled.div`
   font-weight: 400;
   font-size: 30px;
-  line-height: 100%; //a bit of a sloppy solution, can be changed later if it causes problems
-  padding-bottom: 5px;
+  line-height: 100%;
+  padding-bottom: 10px;
 `;
 
 const Home = (props) => {
-  //THEMES:
-  const dimMode = {
-    //theme index 0
-    bg: "rgb(21, 32, 43)", //background
-    f: "rgb(255, 255, 255)", //font
-    sf: "rgb(115,131,143)", //small font
-    lines: "rgb(56, 68, 77)", //lines
-    highlight: "rgb(255, 255, 255)", //highlight
-    searchBar: "rgb(37,51,65)", //search bar
-  };
-
-  const lightMode = {
-    //theme index 1
-    bg: "rgb(255, 255, 255)",
-    f: "rgb(15, 20, 25)",
-    sf: "rgb(91, 112, 131)",
-    lines: "rgb(235, 238, 240)",
-    highlight: "rgb(29, 161, 242)",
-    searchBar: "rgb(235, 238, 240)",
-  };
-
-  const darkMode = {
-    //theme index 2
-    bg: "rgb(15, 20, 25)",
-    f: "rgb(217, 217, 217)",
-    sf: "rgb(110, 118, 125)",
-    lines: "rgb(47, 51, 54)",
-    highlight: "rgb(217, 217, 217)",
-    searchBar: "rgb(32,35,39)",
-  };
-
-  //THEME FUNCTIONALITY
-  const themes = [dimMode, darkMode, lightMode];
-  const [themeIndex, setThemeIndex] = useState(0);
-
-  const toggleTheme = () => {
-    setThemeIndex(themeIndex < 2 ? themeIndex + 1 : 0);
-  };
-
   //fallback that shows until page has been statically generated https://nextjs.org/docs/basic-features/data-fetching#fallback-pages
   const router = useRouter(); //info on useRouter(): https://nextjs.org/docs/api-reference/next/router
   if (router.isFallback) {
@@ -142,31 +92,30 @@ const Home = (props) => {
   }
 
   return (
-    <ThemeProvider theme={themes[themeIndex]}>
-      {/* PageWrapper: bg color & container, see exact properties in styled component css above */}
-      <PageWrapper>
-        <HeaderBox>
-          <div>
-            Enter some text and generate your custom{" "}
-            {/* https://nextjs.org/docs/api-reference/next/link#if-the-child-is-a-custom-component-that-wraps-an-a-tag */}
-            <Link href={`https://twitter.com/${props.username}`} passHref>
-              <TwitterLink>{props.username}</TwitterLink>
-            </Link>{" "}
-            Tweet.
-          </div>
-          <div style={{ marginTop: "15px" }}>Click on any property (time, device, engagement) to change it.</div>
-        </HeaderBox>
-        <Tweet
-          verified={props.verified}
-          username={props.username}
-          name={props.name}
-          profilePic={props.profilePic}
-          toggleThemeFunc={toggleTheme}
-        />
-        <OrBox>OR</OrBox>
-        <SearchBox placeholder="Enter another username" />
-      </PageWrapper>
-    </ThemeProvider>
+    <>
+      <Header />
+      <ExplanationText>
+        <div>
+          Enter some text and generate your custom{" "}
+          {/* https://nextjs.org/docs/api-reference/next/link#if-the-child-is-a-custom-component-that-wraps-an-a-tag */}
+          <TwitterLink href={`https://twitter.com/${props.username}`} target="_blank" passHref>
+            {props.username}
+          </TwitterLink>{" "}
+          Tweet.
+        </div>
+        <div style={{ marginTop: "15px" }}>Click on any property (time, device, engagement) to change it.</div>
+        <div style={{ marginTop: "15px" }}>Click on the sun symbol to toggle between Twitter's themes.</div>
+      </ExplanationText>
+      <Tweet
+        verified={props.verified}
+        username={props.username}
+        name={props.name}
+        profilePic={props.profilePic}
+        toggleThemeFunc={props.toggleTheme}
+      />
+      <OrBox>OR</OrBox>
+      <SearchBox placeholder="Enter another username" />
+    </>
   );
 };
 
