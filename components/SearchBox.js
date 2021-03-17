@@ -59,7 +59,9 @@ const SearchBox = (props) => {
   const router = useRouter(); //router for routing to new username onSubmit
   const handleSubmit = (e) => {
     e.preventDefault(); //preventDefault() to prevent refresh on form submit
-    router.push(`/${currentInput}`);
+    if (currentInput != "") {
+      router.push(`/${currentInput}`);
+    }
     setInput("");
   };
 
