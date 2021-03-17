@@ -308,8 +308,7 @@ const Tweet = (props) => {
     hours = hours.toLocaleString("en-US", {
       minimumIntegerDigits: 2,
       useGrouping: false,
-    }); //modulo eats the 0 in single digit numbers (e.g. "05" becomes "5"). this line converts the int to a two letter string
-    minutes = minutes < 10 ? "0" + minutes : minutes;
+    });
     let strTime = hours + ":" + minutes + " " + ampm;
     return strTime;
   };
