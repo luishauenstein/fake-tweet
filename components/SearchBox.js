@@ -12,7 +12,6 @@ const FormContainer = styled.div`
   border-radius: 9999px;
   max-width: 602px;
   width: calc(100% - 30px);
-  overflow: hidden;
   :focus-within {
     border: 1px solid rgb(29, 161, 242);
     background-color: ${(props) => props.theme.bg};

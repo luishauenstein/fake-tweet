@@ -1,10 +1,9 @@
-import styled, { ThemeProvider } from "styled-components";
-import React, { useState } from "react";
+import styled from "styled-components";
+import React from "react";
 import { useRouter } from "next/router"; //https://nextjs.org/docs/api-reference/next/router
 
 import Tweet from "../components/Tweet.js";
 import SearchBox from "../components/SearchBox.js";
-import Header from "../components/Header";
 
 //https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
 export async function getStaticProps(context) {
@@ -93,12 +92,11 @@ const Home = (props) => {
 
   return (
     <>
-      <Header />
       <ExplanationText>
         <div>
           Enter some text and generate your custom{" "}
           {/* https://nextjs.org/docs/api-reference/next/link#if-the-child-is-a-custom-component-that-wraps-an-a-tag */}
-          <TwitterLink href={`https://twitter.com/${props.username}`} target="_blank" passHref>
+          <TwitterLink href={`https://twitter.com/${props.username}`} target="_blank">
             {props.username}
           </TwitterLink>{" "}
           Tweet.

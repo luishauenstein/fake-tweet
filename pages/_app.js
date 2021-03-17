@@ -3,14 +3,20 @@ import React, { useState } from "react";
 
 import "../styles/globals.css";
 
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+
 const PageWrapper = styled.div`
   width: 100vw;
   height: 100vh;
-  overflow: scroll;
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
   align-items: center;
   /* bgcolor and color set in component props (so themes can be used) */
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const MyApp = ({ Component, pageProps }) => {
@@ -62,7 +68,9 @@ const MyApp = ({ Component, pageProps }) => {
           backgroundColor: `${themes[themeIndex].bg}`,
         }}
       >
+        <Header />
         <Component {...pageProps} toggleTheme={toggleTheme} />
+        <Footer />
       </PageWrapper>
     </ThemeProvider>
   );

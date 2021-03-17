@@ -4,7 +4,7 @@ const HeaderBar = styled.div`
   background-color: rgb(29, 161, 242);
   max-width: 598px;
   width: 100%;
-  padding: 10px 10px 10px 15px;
+  padding: 5px 5px 5px 10px;
   @media screen and (min-width: 600px) {
     border-radius: 0px 0px 10px 10px;
   }
