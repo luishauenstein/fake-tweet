@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Link from "next/link";
 
 const HeaderBar = styled.div`
   background-color: rgb(29, 161, 242);
@@ -21,9 +22,11 @@ const HeaderText = styled.h1`
 
 const Header = () => {
   return (
-    <HeaderBar>
-      <HeaderText>fake-tweet.com</HeaderText>
-    </HeaderBar>
+    <Link href="/">
+      <HeaderBar>
+        <HeaderText>fake-tweet.com</HeaderText>
+      </HeaderBar>
+    </Link>
   );
 };
 
