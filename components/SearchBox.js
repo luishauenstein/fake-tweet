@@ -60,7 +60,8 @@ const SearchBox = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault(); //preventDefault() to prevent refresh on form submit
     if (currentInput != "") {
-      router.push(`/${currentInput}`);
+      const cleanedInput = currentInput.replace(/[^A-Za-z0-9_]/, "").replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, "");
+      router.push(`/${cleanedInput}`);
     }
     setInput("");
   };

@@ -8,7 +8,8 @@ import SearchBox from "../components/SearchBox.js";
 
 //https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
 export async function getStaticProps(context) {
-  let username = context.params.username[0];
+  const usernameUncleaned = context.params.username[0];
+  let username = usernameUncleaned.replace(/[^A-Za-z0-9_]/, "").replace(/[&\/\\#,+()$~%.'":*?<>{}ÖÜA]/g, "");
   //initial values
   let verified = false;
   let profilePic = "https://abs.twimg.com/sticky/default_profile_images/default_profile_bigger.png"; //default twitter profile pic
