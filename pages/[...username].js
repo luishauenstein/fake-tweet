@@ -29,7 +29,6 @@ export async function getStaticProps(context) {
   await fetch(myRequest)
     .then((response) => response.json())
     .then((result) => {
-      console.log(result.data);
       verified = result.data.verified;
       profilePic = result.data.profile_image_url.replace("_normal", "");
       name = result.data.name;
@@ -69,7 +68,7 @@ const ExplanationText = styled.div`
   font-weight: 700;
   padding: 15px 5px 15px 5px;
   text-align: center;
-  line-height: 1;
+  line-height: 1.1;
 `;
 
 const TwitterLink = styled.a`
