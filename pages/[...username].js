@@ -8,7 +8,7 @@ import SearchBox from "../components/SearchBox.js";
 
 //https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
 export async function getStaticProps(context) {
-  const username = context.params.username[0];
+  let username = context.params.username[0];
   //initial values
   let verified = false;
   let profilePic = "https://abs.twimg.com/sticky/default_profile_images/default_profile_bigger.png"; //default twitter profile pic
@@ -29,9 +29,11 @@ export async function getStaticProps(context) {
   await fetch(myRequest)
     .then((response) => response.json())
     .then((result) => {
+      console.log(result.data);
       verified = result.data.verified;
       profilePic = result.data.profile_image_url.replace("_normal", "");
       name = result.data.name;
+      username = result.data.username;
       revalTime = 3600; //increase reval time to one hour if query is successful -> reduce amount of twitter api calls
     })
     .catch((error) => {
