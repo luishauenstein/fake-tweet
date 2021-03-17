@@ -367,6 +367,38 @@ const Tweet = (props) => {
       toggleRTSelector(false);
       toggleQTSelector(false);
       toggleLikeSelector(false);
+      handleHighlighting();
+    }
+  };
+
+  //HANDLE # AND @ HIGHLIGHTING (executed on saveButtonClick())
+  const handleHighlighting = () => {
+    const str = tweetText; //save tweetText as string
+    let isHighlight = false;
+    let currentPhrase = "";
+    const highlightPhrases = [];
+    //iterate over string to find all phrases that should be highlighted and save thme in highlightPhrases array
+    for (let i = 0; i < str.length; i++) {
+      if (isHighlight) {
+        //check if next char is alphanumeric or not
+        if (/^[a-z0-9]+$/i.test(str[i]) == false) {
+          //if no, end highlighting and save currentPhrase to highlightPhrases array
+          isHighlight = false;
+          highlightPhrases.push(currentPhrase);
+          currentPhrase = "";
+          console.log(highlightPhrases);
+        } else {
+          //if yes, append currentPhrase string by current char
+          currentPhrase += str[i];
+        }
+      } else {
+        //check if character is # or @
+        if (str[i] == "@" || str[i] == "#") {
+          //if yes, start highlighting
+          isHighlight = true;
+          currentPhrase += str[i];
+        }
+      }
     }
   };
 
