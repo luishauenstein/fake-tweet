@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import React from "react";
 import { useRouter } from "next/router"; //https://nextjs.org/docs/api-reference/next/router
+import Image from "next/image";
 
 import Tweet from "../components/Tweet.js";
 import SearchBox from "../components/SearchBox.js";
@@ -87,7 +88,37 @@ const Home = (props) => {
   //fallback that shows until page has been statically generated https://nextjs.org/docs/basic-features/data-fetching#fallback-pages
   const router = useRouter(); //info on useRouter(): https://nextjs.org/docs/api-reference/next/router
   if (router.isFallback) {
-    return <p>Fallback...</p>;
+    return (
+      <>
+        <div style={{ height: "15px" }} />
+        <ExplanationText
+          style={{
+            fontSize: "20px",
+            marginTop: "15px",
+            marginBottom: "15px",
+          }}
+        >
+          Loading...
+        </ExplanationText>
+      </>
+    );
+  }
+
+  //if user is not found or some other error happens
+  if (props.error) {
+    return (
+      <>
+        <ExplanationText> Yikes! Look like {props.username} has not been found!</ExplanationText>
+        <Image className="errorMeme" src="/meme.jpg" width={300} height={300} />
+        <ExplanationText>Go enter another username:</ExplanationText>
+        <SearchBox placeholder="Enter another username" />
+        <style jsx global>{`
+          .errorMeme {
+            border-radius: 10px;
+          }
+        `}</style>
+      </>
+    );
   }
 
   return (
