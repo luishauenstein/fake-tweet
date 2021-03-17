@@ -2,6 +2,7 @@ import styled from "styled-components";
 import React, { useState } from "react";
 import ReactCSSTransitionReplace from "react-css-transition-replace"; // https://github.com/marnusw/react-css-transition-replace
 import domtoimage from "dom-to-image"; //https://github.com/tsayen/dom-to-image
+import ReactHtmlParser from "react-html-parser"; //https://www.npmjs.com/package/react-html-parser
 
 const WrapperSection = styled.section`
   max-width: 598px; //iphonex width 375px
@@ -372,11 +373,14 @@ const Tweet = (props) => {
   };
 
   //HANDLE # AND @ HIGHLIGHTING (executed on saveButtonClick())
+  //takes tweetText state and outputs results in highlightedText state
+  const [highlightedText, setHighlightedText] = useState("");
   const handleHighlighting = () => {
-    const str = tweetText; //save tweetText as string
+    let str = tweetText + " "; //save tweetText as string (adds space so last word is also added to array if its @ or #)
     let isHighlight = false;
     let currentPhrase = "";
     const highlightPhrases = [];
+
     //iterate over string to find all phrases that should be highlighted and save thme in highlightPhrases array
     for (let i = 0; i < str.length; i++) {
       if (isHighlight) {
@@ -386,7 +390,6 @@ const Tweet = (props) => {
           isHighlight = false;
           highlightPhrases.push(currentPhrase);
           currentPhrase = "";
-          console.log(highlightPhrases);
         } else {
           //if yes, append currentPhrase string by current char
           currentPhrase += str[i];
@@ -400,6 +403,13 @@ const Tweet = (props) => {
         }
       }
     }
+    str = tweetText; //removes added space
+
+    //wraps every to be highlighted word in <b> tag
+    highlightPhrases.map((phrase) => {
+      str = str.replace(phrase, `<b class="highlight">${phrase}</b>`); //highlighting css done in globals.css
+    });
+    setHighlightedText(str); //saves edited string in highlightedText state
   };
 
   //SCREENSHOT FUNCTIONALITY
@@ -434,20 +444,16 @@ const Tweet = (props) => {
     <WrapperSection>
       <TweetScreenshotOutline>
         <TweetScreenshotWrapper id="tweetScreenshotWrapper">
+          {/* container for whole tweet */}
           <TweetBox>
-            {" "}
-            {/* container for whole tweet */}
-            <ReactionBox /> {/* eventually later used for faking likes & retweets*/}
+            <ReactionBox />
+            {/* container for profile info */}
             <ProfileInfoBox>
-              {" "}
-              {/* container for profile info */}
               <ProfilePic src={props.profilePic} />
+              {/* container for name & username */}
               <UserIdentityBox>
-                {" "}
-                {/* container for name & username */}
+                {/* container for name & checkmark SVG & settings SVG */}
                 <NameContainer>
-                  {" "}
-                  {/* container for name & checkmark SVG & settings SVG */}
                   <Name>{props.name}</Name>
                   <CheckmarkSVG>
                     {props.verified && (
@@ -482,9 +488,8 @@ const Tweet = (props) => {
                 <Username>{props.username}</Username>
               </UserIdentityBox>
             </ProfileInfoBox>
+            {/* container for tweet AND engagement metrics */}
             <ContentBox>
-              {" "}
-              {/* container for tweet AND engagement metrics */}
               <Content>
                 <ReactCSSTransitionReplace
                   transitionName="switch"
@@ -492,7 +497,18 @@ const Tweet = (props) => {
                   transitionLeaveTimeout={300}
                 >
                   {tweetGenerated ? (
-                    <span key={1}>{tweetText}</span>
+                    //ReactHtmlParser parses highlightedText string an turns it into valid jsx react components
+                    //https://www.npmjs.com/package/react-html-parser
+                    <span key={1}>
+                      {ReactHtmlParser(highlightedText)}
+                      {/* @ and # styling */}
+                      <style jsx global>{`
+                        .highlight {
+                          color: rgb(29, 161, 242);
+                          font-weight: normal;
+                        }
+                      `}</style>
+                    </span>
                   ) : (
                     <TweetInput
                       key={2}
@@ -526,9 +542,8 @@ const Tweet = (props) => {
                 <DeviceSpan onClick={() => toggleDevice()}>{deviceList[deviceIndex]}</DeviceSpan>
               </DateTimeBox>
               <Engagement>
+                {/* RT */}
                 <EngagementBox onClick={() => handleEditClick(toggleRTSelector)}>
-                  {" "}
-                  {/* RT */}
                   {rtSelectorVisible ? (
                     <EngagementInput
                       autoFocus={true}
@@ -542,9 +557,8 @@ const Tweet = (props) => {
                   )}
                   <span> Retweets</span>
                 </EngagementBox>
+                {/* QT */}
                 <EngagementBox onClick={() => handleEditClick(toggleQTSelector)}>
-                  {" "}
-                  {/* QT */}
                   {qtSelectorVisible ? (
                     <EngagementInput
                       autoFocus={true}
@@ -558,9 +572,8 @@ const Tweet = (props) => {
                   )}
                   <span style={{ whiteSpace: "nowrap" }}> Quote Tweets</span>
                 </EngagementBox>
+                {/* Likes */}
                 <EngagementBox onClick={() => handleEditClick(toggleLikeSelector)} style={{ marginRight: "0px" }}>
-                  {" "}
-                  {/* Likes */}
                   {likeSelectorVisible ? (
                     <EngagementInput
                       autoFocus={true}
