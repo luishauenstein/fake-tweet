@@ -89,18 +89,15 @@ const Home = (props) => {
   const router = useRouter(); //info on useRouter(): https://nextjs.org/docs/api-reference/next/router
   if (router.isFallback) {
     return (
-      <>
-        <div style={{ height: "15px" }} />
-        <ExplanationText
-          style={{
-            fontSize: "20px",
-            marginTop: "15px",
-            marginBottom: "15px",
-          }}
-        >
-          Loading...
-        </ExplanationText>
-      </>
+      <ExplanationText
+        style={{
+          fontSize: "20px",
+          marginTop: "15px",
+          marginBottom: "15px",
+        }}
+      >
+        Loading...
+      </ExplanationText>
     );
   }
 
@@ -108,7 +105,9 @@ const Home = (props) => {
   if (props.error) {
     return (
       <>
-        <ExplanationText> Yikes! Look like {props.username} has not been found!</ExplanationText>
+        <ExplanationText style={{ paddingTop: "0px" }}>
+          Yikes! Look like {props.username} has not been found!
+        </ExplanationText>
         <Image className="errorMeme" src="/meme.jpg" width={300} height={300} />
         <ExplanationText>Go enter another username:</ExplanationText>
         <SearchBox placeholder="Enter another username" />
@@ -123,7 +122,7 @@ const Home = (props) => {
 
   return (
     <>
-      <ExplanationText>
+      <ExplanationText style={{ paddingTop: "0px" }}>
         <div>
           Enter some text and generate your custom{" "}
           {/* https://nextjs.org/docs/api-reference/next/link#if-the-child-is-a-custom-component-that-wraps-an-a-tag */}
