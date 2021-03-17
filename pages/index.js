@@ -29,6 +29,7 @@ const Home = () => {
           <ListElement>See a preview before downloading a realistic high-res screenshot</ListElement>
           <ListElement>Enter custom Like, Retweet & Quote Tweet numbers or stick with random ones</ListElement>
           <ListElement>Choose device & time or stick with default choices</ListElement>
+          <ListElement>@mention and #hashtag highlighting</ListElement>
         </ul>
       </ExplanationText>
     </>

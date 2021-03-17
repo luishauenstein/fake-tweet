@@ -109,9 +109,14 @@ const Home = (props) => {
     return (
       <>
         <ExplanationText style={{ paddingTop: "0px" }}>
-          Yikes! Look like {props.username} is not an active Twitter account!
+          Yikes! Looks like {props.username} is not an active Twitter account!
         </ExplanationText>
         <Image className="errorMeme" src="/meme.jpg" width={300} height={300} />
+        <style jsx global>{`
+          .errorMeme {
+            border-radius: 10px;
+          }
+        `}</style>
         <ExplanationText>Go enter another username:</ExplanationText>
         <SearchBox placeholder="Enter another username" />
         <ExplanationText
@@ -123,13 +128,8 @@ const Home = (props) => {
           }}
         >
           Note: If you're sure you've entered a valid Twitter handle & still see this error page, this service is
-          probably experiencing heavy load. Please try again later.{" "}
+          probably experiencing heavy load (request limit reached). Please try again later.{" "}
         </ExplanationText>
-        <style jsx global>{`
-          .errorMeme {
-            border-radius: 10px;
-          }
-        `}</style>
       </>
     );
   }
