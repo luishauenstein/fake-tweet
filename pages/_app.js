@@ -60,19 +60,21 @@ const MyApp = ({ Component, pageProps }) => {
   };
 
   return (
-    <ThemeProvider theme={themes[themeIndex]}>
-      {/* PageWrapper: bg color & container, see exact properties in styled component css above */}
-      <PageWrapper
-        style={{
-          color: `${themes[themeIndex].f}`,
-          backgroundColor: `${themes[themeIndex].bg}`,
-        }}
-      >
-        <Header />
-        <Component {...pageProps} toggleTheme={toggleTheme} />
-        <Footer />
-      </PageWrapper>
-    </ThemeProvider>
+    <>
+      <ThemeProvider theme={themes[themeIndex]}>
+        {/* PageWrapper: bg color & container, see exact properties in styled component css above */}
+        <PageWrapper
+          style={{
+            color: `${themes[themeIndex].f}`,
+            backgroundColor: `${themes[themeIndex].bg}`,
+          }}
+        >
+          <Header />
+          <Component {...pageProps} toggleTheme={toggleTheme} />
+          <Footer />
+        </PageWrapper>
+      </ThemeProvider>
+    </>
   );
 };
 

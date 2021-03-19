@@ -2,6 +2,7 @@ import styled from "styled-components";
 import React from "react";
 import { useRouter } from "next/router"; //https://nextjs.org/docs/api-reference/next/router
 import Image from "next/image";
+import Head from "next/head";
 
 import Tweet from "../components/Tweet.js";
 import SearchBox from "../components/SearchBox.js";
@@ -92,15 +93,20 @@ const Home = (props) => {
   const router = useRouter(); //info on useRouter(): https://nextjs.org/docs/api-reference/next/router
   if (router.isFallback) {
     return (
-      <ExplanationText
-        style={{
-          fontSize: "20px",
-          marginTop: "15px",
-          marginBottom: "15px",
-        }}
-      >
-        Loading...
-      </ExplanationText>
+      <>
+        <Head>
+          <title>Loading page... | fake-tweets.com</title>
+        </Head>
+        <ExplanationText
+          style={{
+            fontSize: "20px",
+            marginTop: "15px",
+            marginBottom: "15px",
+          }}
+        >
+          Loading...
+        </ExplanationText>
+      </>
     );
   }
 
@@ -108,6 +114,9 @@ const Home = (props) => {
   if (props.error) {
     return (
       <>
+        <Head>
+          <title>User not found! | fake-tweets.com</title>
+        </Head>
         <ExplanationText style={{ paddingTop: "0px" }}>
           Yikes! Looks like {props.username} is not an active Twitter account!
         </ExplanationText>
@@ -136,6 +145,9 @@ const Home = (props) => {
 
   return (
     <>
+      <Head>
+        <title>Create a {props.username} tweet! | fake-tweet.com</title>
+      </Head>
       <ExplanationText style={{ paddingTop: "0px" }}>
         <div>
           Enter some text and generate your custom{" "}

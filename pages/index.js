@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Head from "next/head";
 
 import SearchBox from "../components/SearchBox";
 
@@ -19,7 +20,12 @@ const Home = () => {
 
   return (
     <>
-      <ExplanationText style={{ fontSize: "20px" }}>Create fake Tweet screenshots in under 10 seconds!</ExplanationText>
+      <Head>
+        <title>fake-tweet.com | Generate fake tweets in less than 10 seconds!</title>
+      </Head>
+      <ExplanationText style={{ fontSize: "20px" }}>
+        Create fake Tweet screenshots in less than 10 seconds!
+      </ExplanationText>
       <ExplanationText>Just enter a valid Twitter handle below:</ExplanationText>
       <SearchBox placeholder="Enter a valid Twitter @username" />
       <ExplanationText style={{ textAlign: "left", padding: "0px" }}>
