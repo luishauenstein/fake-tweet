@@ -10,6 +10,9 @@ const HeaderBar = styled.div`
   @media screen and (min-width: 600px) {
     border-radius: 0px 0px 10px 10px;
   }
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const HeaderText = styled.h1`
