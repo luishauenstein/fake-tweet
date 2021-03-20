@@ -4,6 +4,7 @@ const Container = styled.div`
   margin-top: 15px;
   margin-bottom: 5px;
   font-size: 15px;
+  font-weight: 300;
   color: ${(props) => props.theme.sf};
   //opacity: 70%;
   max-width: 600px;

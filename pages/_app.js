@@ -70,6 +70,9 @@ const MyApp = ({ Component, pageProps }) => {
           name="keywords"
           content="fake tweet generator, meme tweet generator, fake tweet, meme tweet, simple fake tweet, simple meme tweet"
         />
+        {/* google fonts: */}
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap" rel="stylesheet" />
       </Head>
       <ThemeProvider theme={themes[themeIndex]}>
         {/* PageWrapper: bg color & container, see exact properties in styled component css above */}

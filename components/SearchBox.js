@@ -31,7 +31,9 @@ const SearchUserInput = styled.input`
   width: 100%;
   background: transparent;
   border: none;
+  font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: 15px;
+  font-weight: 300;
   color: ${(props) => props.theme.f};
   ::placeholder {
     opacity: 1;

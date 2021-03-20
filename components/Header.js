@@ -20,7 +20,7 @@ const HeaderText = styled.h1`
   margin: 0;
   line-height: 100%;
   font-size: 20px;
-  font-weight: normal;
+  font-weight: 300;
 `;
 
 const Header = () => {
