@@ -22,13 +22,17 @@ const Home = () => {
     <>
       <Head>
         <title>fake-tweet.com | Generate fake tweets in less than 10 seconds!</title>
+        <meta
+          name="description"
+          content="Enter a valid Twitter username to create a realistic fake tweet in under 10 seconds! Create meme tweets without a hassle!"
+        />
       </Head>
       <ExplanationText style={{ fontSize: "20px" }}>
         Create fake Tweet screenshots in less than 10 seconds!
       </ExplanationText>
-      <ExplanationText>Just enter a valid Twitter handle below:</ExplanationText>
+      <ExplanationText style={{ marginBottom: "30px" }}>Just enter a valid Twitter handle below:</ExplanationText>
       <SearchBox placeholder="Enter a valid Twitter @username" />
-      <ExplanationText style={{ textAlign: "left", padding: "0px" }}>
+      <ExplanationText style={{ textAlign: "left", padding: "0px", marginTop: "30px" }}>
         <ul style={{ marginBottom: "0px", paddingLeft: "30px", paddingRight: "12px" }}>
           <ListElement>All Twitter themes supported</ListElement>
           <ListElement>No need to upload profile photos on your own</ListElement>

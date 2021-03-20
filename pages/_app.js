@@ -1,5 +1,6 @@
 import styled, { ThemeProvider } from "styled-components";
 import React, { useState } from "react";
+import Head from "next/head";
 
 import "../styles/globals.css";
 
@@ -61,6 +62,15 @@ const MyApp = ({ Component, pageProps }) => {
 
   return (
     <>
+      <Head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta name="author" content="Luis Hauenstein" />
+        <meta
+          name="keywords"
+          content="fake tweet generator, meme tweet generator, fake tweet, meme tweet, simple fake tweet, simple meme tweet"
+        />
+      </Head>
       <ThemeProvider theme={themes[themeIndex]}>
         {/* PageWrapper: bg color & container, see exact properties in styled component css above */}
         <PageWrapper

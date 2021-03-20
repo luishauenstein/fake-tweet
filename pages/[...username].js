@@ -96,6 +96,10 @@ const Home = (props) => {
       <>
         <Head>
           <title>Loading page... | fake-tweets.com</title>
+          <meta
+            name="description"
+            content="Enter a valid Twitter username to create a realistic fake tweet in under 10 seconds! Create meme tweets without a hassle!"
+          />
         </Head>
         <ExplanationText
           style={{
@@ -116,6 +120,10 @@ const Home = (props) => {
       <>
         <Head>
           <title>User not found! | fake-tweets.com</title>
+          <meta
+            name="description"
+            content="Enter a valid Twitter username to create a realistic fake tweet in under 10 seconds! Create meme tweets without a hassle!"
+          />
         </Head>
         <ExplanationText style={{ paddingTop: "0px" }}>
           Yikes! Looks like {props.username} is not an active Twitter account!
@@ -143,10 +151,15 @@ const Home = (props) => {
     );
   }
 
+  const descriptionTag = `Create a realistic fake ${props.username} tweet in under 10 seconds! Create meme tweets without a hassle! Choose custom design and enter custom engagement metrics, or stick with default values!`;
+  const keywordsTag = `fake tweet generator, meme tweet generator, fake ${props.username} tweet, meme ${props.username} tweet, fake ${props.name} tweet, meme ${props.name} tweet`;
   return (
     <>
       <Head>
         <title>Create a {props.username} tweet! | fake-tweet.com</title>
+        <meta name="description" content={descriptionTag} />
+        {/* this "keywords" tag overwrites the _app.js keyword tag */}
+        <meta name="keywords" content={keywordsTag} />
       </Head>
       <ExplanationText style={{ paddingTop: "0px" }}>
         <div>
