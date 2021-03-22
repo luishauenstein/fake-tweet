@@ -119,7 +119,7 @@ const Home = (props) => {
     return (
       <>
         <Head>
-          <title>User not found! | fake-tweets.com</title>
+          <title>User not found! | fake-tweet.com</title>
           <meta
             name="description"
             content="Enter a valid Twitter username to create a realistic fake tweet in under 10 seconds! Create meme tweets without a hassle!"
@@ -168,7 +168,7 @@ const Home = (props) => {
           <TwitterLink href={`https://twitter.com/${props.username}`} target="_blank">
             {props.username}
           </TwitterLink>{" "}
-          Tweet.
+          tweet.
         </div>
         <div style={{ marginTop: "15px" }}>Click on any property (time, device, engagement) to change it.</div>
         <div style={{ marginTop: "15px" }}>Click on the sun symbol to toggle between Twitter's themes.</div>
