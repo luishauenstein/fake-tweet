@@ -417,7 +417,7 @@ const Tweet = (props) => {
   //https://github.com/tsayen/dom-to-image
   const downloadScreenshot = () => {
     //scales component to improve quality: https://github.com/tsayen/dom-to-image/issues/332#issuecomment-626108207
-    /*
+
     const scale = 4;
     const node = document.getElementById("tweetScreenshotWrapper");
     const style = {
@@ -432,26 +432,12 @@ const Tweet = (props) => {
       quality: 1,
       style,
     };
-    
-    domtoimage.toJpeg(node, param).then(function (dataUrl) {
+
+    domtoimage.toPng(node, param).then(function (dataUrl) {
       //download functionality
       var link = document.createElement("a");
-      link.download = "tweet.jpeg";
-      link.href = dataUrl;
-      link.click();
-    });
-    */
-    const node = document.querySelector("#tweetScreenshotWrapper");
-    const param = {
-      //becuase profile image comes from another origin
-      allowTaint: true,
-      useCORS: true,
-    };
-
-    html2canvas(node, param).then((canvas) => {
-      let link = document.createElement("a");
-      link.href = canvas.toDataURL();
       link.download = "tweet.png";
+      link.href = dataUrl;
       link.click();
     });
   };
