@@ -446,6 +446,7 @@ const Tweet = (props) => {
       //becuase profile image comes from another origin
       allowTaint: true,
       useCORS: true,
+      foreignObjectRendering: true,
     };
 
     html2canvas(node, param).then((canvas) => {
