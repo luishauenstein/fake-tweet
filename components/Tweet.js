@@ -2,6 +2,7 @@ import styled from "styled-components";
 import React, { useState } from "react";
 import ReactCSSTransitionReplace from "react-css-transition-replace"; // https://github.com/marnusw/react-css-transition-replace
 import domtoimage from "dom-to-image"; //https://github.com/tsayen/dom-to-image
+import html2canvas from "html2canvas"; //https://html2canvas.hertzen.com/
 import ReactHtmlParser from "react-html-parser"; //https://www.npmjs.com/package/react-html-parser
 
 const WrapperSection = styled.section`
@@ -416,6 +417,7 @@ const Tweet = (props) => {
   //https://github.com/tsayen/dom-to-image
   const downloadScreenshot = () => {
     //scales component to improve quality: https://github.com/tsayen/dom-to-image/issues/332#issuecomment-626108207
+    /*
     const scale = 4;
     const node = document.getElementById("tweetScreenshotWrapper");
     const style = {
@@ -430,12 +432,26 @@ const Tweet = (props) => {
       quality: 1,
       style,
     };
-
+    
     domtoimage.toJpeg(node, param).then(function (dataUrl) {
       //download functionality
       var link = document.createElement("a");
       link.download = "tweet.jpeg";
       link.href = dataUrl;
+      link.click();
+    });
+    */
+    const node = document.querySelector("#tweetScreenshotWrapper");
+    const param = {
+      //becuase profile image comes from another origin
+      allowTaint: true,
+      useCORS: true,
+    };
+
+    html2canvas(node, param).then((canvas) => {
+      let link = document.createElement("a");
+      link.href = canvas.toDataURL();
+      link.download = "tweet.png";
       link.click();
     });
   };
