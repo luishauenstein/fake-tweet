@@ -414,7 +414,7 @@ const Tweet = (props) => {
 
   //SCREENSHOT FUNCTIONALITY
   //https://github.com/tsayen/dom-to-image
-  const downloadScreenshot = async () => {
+  const downloadScreenshot = () => {
     //scales component to improve quality: https://github.com/tsayen/dom-to-image/issues/332#issuecomment-626108207
     const scale = 4;
     const node = document.getElementById("tweetScreenshotWrapper");
@@ -431,16 +431,11 @@ const Tweet = (props) => {
       style,
     };
 
-    await new Promise((r) => setTimeout(r, 100));
-
-    domtoimage.toJpeg(node, param).then(async function (dataUrl) {
-      await new Promise((r) => setTimeout(r, 100));
+    domtoimage.toJpeg(node, param).then(function (dataUrl) {
       //download functionality
       var link = document.createElement("a");
       link.download = "tweet.jpeg";
       link.href = dataUrl;
-      // wait 100ms so image has time to generate (issue occured on mobile in production)
-      await new Promise((r) => setTimeout(r, 100)); //https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep1
       link.click();
     });
   };
