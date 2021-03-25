@@ -2,7 +2,6 @@ import styled from "styled-components";
 import React, { useState } from "react";
 import ReactCSSTransitionReplace from "react-css-transition-replace"; // https://github.com/marnusw/react-css-transition-replace
 import domtoimage from "dom-to-image"; //https://github.com/tsayen/dom-to-image
-import { saveAs } from "file-saver";
 import ReactHtmlParser from "react-html-parser"; //https://www.npmjs.com/package/react-html-parser
 
 const WrapperSection = styled.section`
@@ -432,15 +431,16 @@ const Tweet = (props) => {
       quality: 1,
       style,
     };
-    /*domtoimage.toPng(node, param).then(function (dataUrl) {
-      //download functionality
-      var link = document.createElement("a");
-      link.download = "tweet.png";
-      link.href = dataUrl;
-      link.click();
-    });*/
-    domtoimage.toBlob(node, param).then(function (blob) {
-      saveAs(blob, "my-node.png");
+
+    //wrapped so domtoimage works on ios safari
+    domtoimage.toPng(node, param).then((dataURL) => {
+      domtoimage.toPng(node, param).then((dataUrl) => {
+        //download functionality
+        var link = document.createElement("a");
+        link.download = "tweet.png";
+        link.href = dataUrl;
+        link.click();
+      });
     });
   };
 
