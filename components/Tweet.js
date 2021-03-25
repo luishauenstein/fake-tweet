@@ -433,6 +433,7 @@ const Tweet = (props) => {
     };
 
     //wrapped so domtoimage works on ios safari
+    // https://github.com/tsayen/dom-to-image/issues/343#issuecomment-685428224
     domtoimage.toPng(node, param).then((dataURL) => {
       domtoimage.toPng(node, param).then((dataUrl) => {
         //download functionality
@@ -665,7 +666,7 @@ const Tweet = (props) => {
             </svg>
           </TwitterButton>
           <TwitterButton onClick={() => downloadScreenshot()} style={{ width: "160px", transition: "all 0.2s" }}>
-            Download as JPEG
+            Download as PNG
           </TwitterButton>
         </ButtonContainer>
       )}
